@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {View, ActivityIndicator, StyleSheet} from 'react-native'
 import {CommonActions} from '@react-navigation/native';
-import {currentFirebaseUser} from '../services/FirebaseApi';
+import { currentFirebaseUser } from '../services/FirebaseApi';
 
 export default class App extends Component {
+
   async componentDidMount() {
     let resetNavigation = CommonActions.reset({
       index: 0,
       routes: [{name: 'Login'}],
     });
+
     try {
       const user = await currentFirebaseUser();
       if (user) {
@@ -18,10 +20,11 @@ export default class App extends Component {
             routes: [{name: 'TaskList'}],
           }),
         );
-        return;
       }
-      this.props.navigation.dispatch(resetNavigation);
+      
     } catch (error) {
+      console.log(error);
+    } finally {
       this.props.navigation.dispatch(resetNavigation);
     }
   }
@@ -33,16 +36,17 @@ export default class App extends Component {
       </View>
     );
   }
-}
+
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   loading: {
     width: 50,
-    height: 50,
-  },
+    height: 50
+  }
 });

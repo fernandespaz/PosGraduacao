@@ -1,3 +1,5 @@
 import TaskListView from './TaskListView';
 
-export {TaskListView};
+export {
+    TaskListView
+}
